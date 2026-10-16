@@ -1,0 +1,37 @@
+\input{../header.tex}
+
+\subject{EXPERIMENT NUMBER}
+\title{TITLE}
+\date{%
+  Conducted on: DATE
+  \hspace{3em}
+  Submitted on: DATE
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+
+\input{content/objective.tex}
+\input{content/theory.tex}
+\input{content/procedure.tex}
+\input{content/analysis.tex}
+\input{content/discussion.tex}
+
+\printbibliography{}
+%\section*{Appendix}
+%\addcontentsline{toc}{section}{Appendix}
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[width = 0.75\textwidth]{figures/Messdaten1.jpg}
+%\end{figure}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width = 0.9\textwidth]{figures/Messdaten2.jpg}
+%\end{figure}
+
+\end{document}
