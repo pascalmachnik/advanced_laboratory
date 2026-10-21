@@ -1,0 +1,12 @@
+[project]
+name = "advanced-laboratory"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.11.2",
+    "pillow-heif>=1.8.1",
+    "scipy>=1.18.1",
+    "uncertainties>=3.2.3",
+]
