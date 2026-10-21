@@ -1,0 +1,138 @@
+\section{Diskussion}
+\label{sec:Diskussion}
+
+\subsection{Stabilitätsbedingung}
+
+Die Messwerte des konkav-konkaven Resonators sind mit dem theoretischen
+Stabilitätsbereich bis \qty{280}{\centi\meter} verträglich. Die größte
+untersuchte Länge von $\vStableLast$ belegt jedoch lediglich Laserbetrieb
+bis zu dieser Länge. Sie darf nicht als experimentell bestimmte obere
+Stabilitätsgrenze angegeben werden, da kein Erlöschen dokumentiert ist.
+Die nicht monotone Leistung innerhalb des stabilen Bereichs widerspricht
+der Stabilitätsbedingung nicht: Diese beschreibt die geometrische
+Rückführung des Strahls, während die Ausgangsleistung zusätzlich von
+Justage, Modenüberlappung im aktiven Medium und Verlusten abhängt.
+
+Beim plan-konkaven Resonator ist der deutliche Leistungsrückgang zwischen
+\qty{132.5}{\centi\meter} und \qty{137.5}{\centi\meter} mit der Annäherung
+an die geometrische Grenze von \qty{140}{\centi\meter} vereinbar.
+Die Nullanzeigen bei größeren Längen unterstützen diesen Befund
+qualitativ. Auch bei einer Leistungsunsicherheit von
+\qty{0.1}{\milli\watt} lässt sich aus den wenigen Messpunkten
+keine scharfe experimentelle Abschaltgrenze ableiten. Insbesondere
+bedeutet die Anzeige null keinen Nachweis exakt verschwindender Leistung.
+Nahe der Stabilitätsgrenze können zunehmende Strahlradien und
+Justageempfindlichkeit zu Beugungs- und Aperturverlusten führen, sodass
+die Laserschwelle bereits vor der idealen geometrischen Grenze
+unterschritten wird. Ohne weitere Messpunkte und Nachweisgrenze ist eine
+quantitative Trennung dieser Einflüsse nicht möglich.
+
+\subsection{Transversale Moden}
+
+Das TEM$_{00}$-Profil folgt der erwarteten Gaußverteilung. Der im Fit bestimmte
+Untergrund $B_{00}=\vZeroB$ ist mit null verträglich. Das reduzierte
+$\chi^2_\nu=\vZeroChi$ zeigt keine statistisch auffällige Abweichung
+vom Modell unter den angesetzten Unsicherheiten. Ein Wert unter eins
+ist kein Anlass, die vorgegebenen Messunsicherheiten nachträglich zu
+verkleinern; insbesondere kann die Positionsunsicherheit von
+\qty{1}{\milli\meter} einen beträchtlichen Anteil der Streuung abdecken.
+
+Das TEM$_{10}$-Profil besitzt die erwarteten zwei Maxima und einen
+Knoten nahe der Profilmitte. Nach Korrektur des bestätigten
+Übertragungsfehlers beschreibt die Hermite-Gauß-Funktion die Messwerte
+mit $\chi^2_\nu=\vFirstChi$. Die Loben sind nicht vollkommen symmetrisch;
+dies kann durch eine unvollständige Modenselektion, eine verkippte
+Abtastrichtung oder eine während der Messreihe veränderte Leistung
+entstehen. Auch der Untergrund ist innerhalb weniger
+Standardunsicherheiten mit null vereinbar; ein kleiner negativer
+Fitwert ist keine physikalisch negative Lichtleistung.
+Der Draht zur Modenselektion erhöht die Verluste für Feldverteilungen,
+die an seiner Position eine hohe Intensität besitzen. Eine Mode mit
+einem dort liegenden Knoten wird dadurch relativ bevorzugt.
+
+Die ermittelten Breitenparameter $w_{00}=\vZeroWidth$ und $w_{10}=\vFirstWidth$
+beziehen sich auf die vergrößerten Profile in der Detektorebene.
+Aus dem Abstand zur Streulinse allein folgt keine Vergrößerung;
+ohne Brennweite und weitere Geometriedaten lassen sich daraus weder
+der ursprüngliche Strahlradius noch eine Resonatorstrahltaille bestimmen.
+Ein zwingend identischer Breitenparameter beider separat aufgenommener Profile
+kann deshalb nicht vorausgesetzt werden.
+
+\subsection{Polarisation}
+
+Die ausgeprägte $\cos^2$-Abhängigkeit mit einem Maximum bei
+$\varphi_0=\vPolTheta$ und einer nahezu vollständigen Auslöschung in der
+orthogonalen Richtung ist mit überwiegend linear polarisiertem
+Laserlicht vereinbar. Die Fitgüte $\chi^2_\nu=\vPolChi$ und der innerhalb
+von zwei Standardunsicherheiten mit null verträgliche Untergrund $B=\vPolB$
+stützen das Malus-Modell.
+Der geringfügig negative Untergrund darf nicht zur Ableitung eines
+Polarisationsgrades über eins oder einer physikalisch negativen
+Minimalleistung verwendet werden. Ohne unabhängige Untergrundmessung
+und Kenntnis des Extinktionsverhältnisses des Analysators ist eine
+präzise Restpolarisation nicht bestimmbar.
+
+Die Brewsterfenster verursachen für die in ihrer Einfallsebene
+polarisierte Komponente geringe Reflexionsverluste. Die orthogonale
+Komponente erfährt größere Umlaufverluste, sodass die verlustärmere
+Polarisation im Resonator bevorzugt anschwingt. Die Resonatorspiegel
+besitzen bei nahezu senkrechtem Einfall idealerweise keine ausgeprägte
+Bevorzugung einer linearen Richtung. Reale Beschichtungen oder ein
+schräger Einfall können zusätzliche polarisationsabhängige Verluste
+bewirken; aus dieser Messung lässt sich ihr Anteil nicht gesondert
+bestimmen. Der gefittete Winkel beschreibt die Richtung relativ zum
+Nullpunkt der Analysatorskala.
+
+\subsection{Longitudinale Moden}
+
+Die ermittelten Modenabstände nehmen mit zunehmender
+Resonatorlänge ab und folgen dem erwarteten Verlauf $c/(2L)$.
+In \autoref{tab:v61-mode-spacings} liegen alle Mittelwerte oberhalb
+der theoretischen Werte. Die relativen Abweichungen reichen von
+\vLongRelativeMin\,\unit{\percent} bis
+\vLongRelativeMax\,\unit{\percent}.
+Die Messung bestätigt damit die Größenordnung und den Verlauf des
+Modenabstands und zeigt leichte positive Abweichungen. Da für die
+Frequenzmessung keine Messgenauigkeit angegeben ist, lässt sich die
+Übereinstimmung anhand der Messunsicherheiten nicht quantitativ beurteilen.
+
+Einzelne Peakpositionen weichen zudem von exakt ganzzahligen
+Vielfachen des Modenabstands ab.
+
+Mögliche zusätzliche Einflüsse sind eine systematische Abweichung der
+wirksamen optischen Resonatorlänge von der abgelesenen Länge oder die
+Frequenzkalibrierung und Peakablesung am verwendeten Messgerät.
+Der Brechungsindex und die Spiegelphase können die optische
+Länge ebenfalls verändern; mangels weiterer Angaben werden sie hier
+nicht quantitativ korrigiert.
+
+Die bei angenommener Raumtemperatur abgeschätzte Dopplerbreite von
+etwa \vDoppler\,\unit{\giga\hertz} übersteigt den Modenabstand um
+ungefähr den Faktor $\vDopplerRatioMin$ bis $\vDopplerRatioMax$.
+Damit können mehrere Resonanzfrequenzen innerhalb des verstärkenden
+Übergangs liegen; dies erklärt die Möglichkeit des Multimodenbetriebs
+ohne frequenzselektierendes Etalon. Die beobachteten harmonischen
+Schwebungen sind damit vereinbar. Aus dem Verhältnis allein folgt
+jedoch keine exakte Zahl tatsächlich anschwingender Moden, da dazu
+Verstärkung, Verluste und Modenkonkurrenz bekannt sein müssten.
+Eine erwärmte Gasfüllung hätte eine größere Dopplerbreite als die
+hier angenommene Raumtemperaturabschätzung.
+
+\subsection{Wellenlänge}
+
+Die getrennten Fits ergeben $\lambda_1=\vWaveOne$ für das Gitter mit
+\qty{80}{\per\milli\meter} und $\lambda_2=\vWaveTwo$ für das Gitter
+mit \qty{100}{\per\milli\meter}. Gegenüber der Referenzwellenlänge
+\qty{632.8}{\nano\meter} \cite[2]{eLas_HeNe} liegen die Werte um
+\vWaveOneDeviation{} beziehungsweise \vWaveTwoDeviation{} höher.
+Die reduzierten $\chi^2$-Werte von \vWaveOneChi{} und \vWaveTwoChi{}
+sind deutlich größer als eins. Die Abweichungen der Messwerte von den
+jeweiligen Fitkurven sind somit größer, als die angesetzten
+Messunsicherheiten erwarten lassen. Beide Fits weisen unter diesen
+Unsicherheitsannahmen eine geringe Fitgüte auf.
+
+Zusätzliche systematische Beiträge können aus der Ausrichtung des Gitters,
+der Lage des Schirms und der Bestimmung der Maximamitte entstehen.
+Die Nennliniendichten werden ohne zusätzliche Toleranz verwendet;
+eine tatsächliche Gittertoleranz wäre ein weiterer Beitrag zur
+Wellenlängenunsicherheit.

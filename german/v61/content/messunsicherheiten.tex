@@ -1,0 +1,25 @@
+\subsection{Berechnung der Messunsicherheiten}
+\label{sec:Messunsicherheiten}
+
+Zur Berechnung des Mittelwertes einer Größe $x$ mit $N$ Messwerten wird die Formel
+%
+\begin{equation}
+    \bar{x} = \frac{1}{N} \sum_{i=1}^N x_i
+\end{equation}
+%
+benutzt. Die zugehörige Standardabweichung des Mittelwertes $\increment \bar{x}$ berechnet sich über
+%
+\begin{equation}
+    \increment \bar{x} = \sqrt{\frac{1}{N \l(N-1\r)}\sum_{i=1}^N \left(x_i - \bar{x}\right)^2}
+\end{equation}
+%
+Die Unsicherheit einer zusammengesetzen Größe $g\left(x_1, …, x_n\right)$ wird mithilfe der Gaußschen
+Fehlerfortpflanzung bestimmt
+%
+\begin{equation}
+    \increment g\left(x_1, …, x_n\right) = \sqrt{\sum_{i=1}^N \left(\increment x_i ~ \partial_i \, f \right)^2}
+\end{equation}
+%
+Größen werden in der Form $\bar{x} \pm \increment \bar{x}$ angegeben. Alle Berechnungen, Graphen, sowie die 
+Bestimmung der Messunsicherheiten werden mit Python 3.11.5 und entsprechenden Bibliotheken
+\footnote{Numpy \cite{numpy}, Matplotlib \cite{matplotlib} und Uncertainties \cite{uncertainties}} durchgeführt.

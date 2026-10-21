@@ -1,0 +1,8 @@
+# Gitter: 100 Linien/mm
+# Abstand Gitter Schirm 13,1cm
+# Maximum Positionen [mm]
+24.0
+15.0
+6.0
+-3.0
+-11.0
