@@ -337,7 +337,7 @@ def main():
         two_halves(name, data, caption, label,
                    r"x/\unit{\milli\meter}", r"P/\unit{\milli\watt}")
     two_halves("table_polarisation.tex", polarisation,
-               r"Polarisationsmessung: gemessene Leistung $P$ in Abhängigkeit vom Winkel $\varphi$ des Analysators. Die Winkelunsicherheit beträgt $\Delta\varphi=\qty{1}{\degree}$, die Leistungsunsicherheit $\Delta P=\qty{0.01}{\milli\watt}$.",
+               r"Polarisationsmessung: gemessene Leistung $P$ in Abhängigkeit vom Winkel $\varphi$ des Polarisationsfilters. Die Winkelunsicherheit beträgt $\Delta\varphi=\qty{1}{\degree}$, die Leistungsunsicherheit $\Delta P=\qty{0.01}{\milli\watt}$.",
                "tab:v61-polarisation", r"\varphi/\unit{\degree}", r"P/\unit{\milli\watt}",
                show_uncertainties=False)
 

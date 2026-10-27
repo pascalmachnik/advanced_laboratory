@@ -18,20 +18,20 @@ Unsicherheitsintervalls. Die Abweichung beträgt
 \vWaveOneReferenceSigma{} Standardunsicherheiten. Beim zweiten Gitter
 beträgt sie \vWaveTwoReferenceSigma{} Standardunsicherheiten, sodass
 hier eine größere Abweichung von der Referenz verbleibt.
-Die reduzierten $\chi^2$-Werte von \vWaveOneChi{} und \vWaveTwoChi{}
-liegen unter eins. Die Streuung der Messpunkte um die jeweilige Fitkurve
-ist daher mit den angesetzten Unsicherheiten vereinbar. Wegen der nur drei
-Freiheitsgrade je Fit ist daraus allein keine sichere Aussage über eine
-Überschätzung der Unsicherheiten möglich.
 
-Die Positionsunsicherheiten wurden mit \qty{0.5}{\milli\meter} angesetzt.
-Zusätzlich kann die endliche Breite der Beugungsmaxima deren Lokalisierung
-erschweren. Auch eine Abweichung vom angenommenen senkrechten Einfall
-oder ein systematischer Fehler des Schirmabstands kann den ermittelten
-Wellenlängenwert verschieben, ohne eine entsprechend große Streuung um
-die Fitkurve zu erzeugen. Insbesondere beim zweiten Gitter sind solche
-Beiträge als mögliche Erklärung zu berücksichtigen. Ihr Einfluss lässt
-sich ohne zusätzliche Angaben nicht quantitativ beurteilen.
+Die Fits beschreiben die Messpunkte gut und entsprechen dem erwarteten
+Verlauf der Gitterbeugung. Die reduzierten $\chi^2$-Werte von
+\vWaveOneChi{} und \vWaveTwoChi{} liegen unter eins. Dies kann auf zu groß
+abgeschätzte Messunsicherheiten hindeuten. Bei nur drei Freiheitsgraden je
+Fit lässt sich daraus jedoch nicht sicher auf eine Überschätzung der
+Unsicherheiten schließen.
+
+Die Abweichung beim zweiten Gitter könnte durch einen systematischen
+Abstandsfehler entstehen. Gemessen wurde vom Ende des Gitters bis zum
+Anfang der Schlitz-Photodiode, ohne die Lage des Photodetektors hinter dem Schlitz
+zu berücksichtigen. Liegt dort die wirksame Detektionsebene, wird der
+Abstand unterschätzt und die Wellenlänge überschätzt. Die Fitgüte kann
+dabei erhalten bleiben.
 
 \subsection{Bestimmung der Polarisation}
 
@@ -74,14 +74,7 @@ Dies würde zu einer systematischen Verzerrung des gemessenen Profils führen.
 Das reduzierte $\chi^2_\nu=\vFirstChi$ liegt dagegen deutlich über eins.
 Die Abweichungen vom symmetrischen TEM$_{10}$-Modell sind größer, als die
 angesetzten Messunsicherheiten erwarten lassen. Die beschriebene
-Asymmetrie beziehungsweise weitere systematische Messbeiträge können
-dazu beitragen. Auch unterschätzte Unsicherheiten sind möglich.
-Der negative Fitwert $B_{10}=\vFirstB$ ist als empirischer Offset zu
-verstehen und nicht als physikalisch negative Untergrundleistung.
-Zusammen mit der erhöhten Fitabweichung begrenzt dies die quantitative
-Aussagekraft des idealisierten Modells. Die angegebenen
-Parameterunsicherheiten berücksichtigen diese zusätzlichen systematischen
-Beiträge nicht.
+Asymmetrie ist eine wahrscheinliche Erklärung.
 
 \subsection{Stabilität bei verschiedenen Resonatorlängen}
 
@@ -91,10 +84,7 @@ Länge des Messaufbaus nicht erreichbar. Daher konnte lediglich qualitativ
 bestätigt werden, dass der Laser innerhalb des untersuchten Längenbereichs
 bis $L=\vStableLast$ stabil betrieben werden kann. Die dabei beobachteten
 Schwankungen der Ausgangsleistung lassen sich durch die notwendige erneute
-Justage nach jeder Änderung der Resonatorlänge erklären. Da die maximale
-Leistung nur bei optimaler Ausrichtung der Resonatorspiegel und des Laserrohrs
-erreicht wird, können Unterschiede in der Justage zu deutlichen
-Leistungsschwankungen führen.
+Justage nach jeder Änderung der Resonatorlänge erklären.
 
 Für die plan-konkave Konfiguration liegt die theoretische Stabilitätsgrenze
 bei $L=\qty{140}{\centi\meter}$. Die gemessene Leistung nimmt bei Annäherung
@@ -108,24 +98,18 @@ ebenfalls mit den Unterschieden bei der erneuten Justage vereinbar.
 
 \subsection{Multimodenbetrieb und Frequenzspektrum}
 
-Die bei angenommener Raumtemperatur abgeschätzte Dopplerbreite von etwa
-\vDoppler\,\unit{\giga\hertz} ist deutlich größer als die gemessenen
-Modenabstände von \vLongSpacingMin{} bis \vLongSpacingMax{}.
-Diese liegen damit etwa eine Größenordnung unter der Dopplerbreite,
-sodass mehrere longitudinale Moden innerhalb der verbreiterten Emissionslinie
-liegen können. Der Multimodenbetrieb und die Beobachtung mehrerer
-Schwebungsfrequenzen sind daher plausibel.
+Die bei Raumtemperatur abgeschätzte Dopplerbreite von
+\vDoppler\,\unit{\giga\hertz} übersteigt die gemessenen Modenabstände von
+\vLongSpacingMin{} bis \vLongSpacingMax{} deutlich. Innerhalb der
+verbreiterten Emissionslinie können daher mehrere longitudinale Moden
+anschwingen, was die beobachteten Schwebungsfrequenzen erklärt.
 
-Die gemessenen Modenabstände nehmen mit zunehmender Resonatorlänge ab
-und stimmen qualitativ mit dem erwarteten Verlauf $c/(2L)$ überein.
-Die Differenzen zwischen den gemessenen Mittelwerten und den theoretischen
-Werten in \autoref{tab:v61-mode-spacings} sind jedoch überwiegend größer
-als die angegebenen Unsicherheiten. Dabei wurden bislang nur die
-Unsicherheiten der Resonatorlängen berücksichtigt, nicht aber diejenigen
-der gemessenen Frequenzen. Die Unsicherheiten der Differenzen sind daher
-unvollständig. Zusätzliche Beiträge durch die Frequenzauflösung und die
-Bestimmung der Peakpositionen könnten die beobachteten Abweichungen erklären.
-Ob diese Beiträge hierfür ausreichen, lässt sich ohne eine Abschätzung
-ihrer Größe nicht quantitativ beurteilen.
+Die Modenabstände nehmen mit der Resonatorlänge qualitativ wie $c/(2L)$ ab.
+Die Abweichungen in \autoref{tab:v61-mode-spacings} übersteigen jedoch
+überwiegend die angegebenen Unsicherheiten. Diese berücksichtigen nur die
+Resonatorlängen. Zusätzliche Unsicherheiten bei der Bestimmung der
+Peakfrequenzen mit dem Oszilloskop könnten
+zu den Abweichungen beitragen. Ihr Einfluss lässt sich ohne quantitative
+Abschätzung nicht beurteilen.
 
 \newpage

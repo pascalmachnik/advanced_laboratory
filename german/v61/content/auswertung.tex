@@ -25,14 +25,18 @@ Die Fehlerfortpflanzung erfolgt mit dem Python-Paket \texttt{uncertainties} \cit
 \label{subsec:v61-wellenlaenge}
 
 Die zwei verwendeten Gitter besitzen die Liniendichten $N_1=\qty[per-mode=reciprocal]{80}{\per\milli\meter}$
-und $N_2=\qty[per-mode=reciprocal]{100}{\per\milli\meter}$. Mit der Gitterkonstante $b=1/N$
-gilt bei senkrechtem Einfall
+und $N_2=\qty[per-mode=reciprocal]{100}{\per\milli\meter}$. 
+Bei senkrechtem Einfall gilt die Gittergleichung
 \begin{equation*}
   m\lambda=b\sin\theta_m.
 \end{equation*}
+Dabei bezeichnet $\lambda$ die Wellenlänge des Laserlichts, $b=1/N$ die Gitterkonstante und
+$m=0,\pm1,\pm2,\ldots$ die ganzzahlige Beugungsordnung.
+Der Winkel $\theta_m$ ist der Beugungswinkel des Maximums der Ordnung $m$
+gegenüber der Gitternormalen.
 Für die Position $y_m$ des Maximums der Ordnung $m$ folgt aus der
-Schirmgeometrie mit dem Schirmabstand $d$ und der Position $y_0$
-des zentralen Maximums
+Schirmgeometrie mit dem Abstand $d$ zwischen Gitter und Schirm und der Position $y_0$
+des zentralen Maximums die folgende Beziehung
 \begin{equation*}
   y_m-y_0=d\tan\theta_m
   =d\frac{\sin\theta_m}{\sqrt{1-\sin^2\theta_m}}.
@@ -47,12 +51,14 @@ Bei beiden Gittern entspricht die gemessene Position $y=\qty{6}{\milli\meter}$
 dem Maximum nullter Ordnung. Die Messwerte in \autoref{tab:v61-wellenlaenge}
 werden in der notierten Reihenfolge für das erste Gitter den Ordnungen
 $m=3,2,1,0,-1$ und für das zweite Gitter den Ordnungen $m=2,1,0,-1,-2$
-zugeordnet und für jedes Gitter getrennt gefittet. Dabei werden die Positions- und Schirmabstandsunsicherheiten
-berücksichtigt und $y_0$ jeweils mitbestimmt.
+zugeordnet und für jedes Gitter getrennt gefittet.
 
 \input{build/table_wavelength.tex}
 
-Die Fits in \autoref{fig:v61-wellenlaenge} liefern
+Die Fits in \autoref{fig:v61-wellenlaenge} liefern die Wellenlängen
+$\lambda_i$ für die beiden Gitter mit $i=1,2$. Als Maß für die Fitgüte wird
+das reduzierte Chi-Quadrat $\chi^2_{\nu,i}=\chi_i^2/\nu_i$ angegeben,
+wobei $\nu_i$ die Anzahl der Freiheitsgrade des jeweiligen Fits bezeichnet:
 \begin{align*}
   N_1=\qty[per-mode=reciprocal]{80}{\per\milli\meter}:\quad
   &\lambda_1=\vWaveOne,\quad
@@ -108,9 +114,10 @@ Die Fitgüte beträgt $\chi^2_\nu=\vPolChi$ bei $\nu=\vPolDof$.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\textwidth]{build/polarisation.pdf}
-  \caption{Leistung als Funktion der Analysatorstellung und Fit
-  des Malus-Gesetzes. Winkel- und Leistungsunsicherheiten gehen in die
-  Fitberechnung ein.}
+  \caption{Leistung als Funktion der Polarisationsfilterstellung und Fit
+  des Malus-Gesetzes. Die Unsicherheiten der Messwerte sind als Fehlerbalken
+  dargestellt. Die Fehlerbalken der Leistungsmessung sind aufgrund der
+  kleinen Unsicherheiten in dieser Darstellung nicht erkennbar.}
   \label{fig:v61-polarisation}
 \end{figure}
 \FloatBarrier
