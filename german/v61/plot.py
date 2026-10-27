@@ -1,9 +1,11 @@
 """Reproduce all V61 plots, tables and results: python plot.py (from any cwd).
 
 Unless explicitly specified, an uncertainty is one unit in the last
-*written* decimal place of a measurement. For polarisation, the prescribed
-power uncertainty is 0.001 mW. Decimal strings are retained before conversion.
-For stability measurements, fixed uncertainties of 0.1 cm and 0.1 mW apply.
+*written* decimal place of a measurement. For polarisation, the power uncertainty is
+0.01 mW, matching the last written decimal place. Decimal strings are retained before conversion.
+Lengths recorded in cm use a standard uncertainty of 1 mm (0.1 cm);
+lengths recorded in mm use 0.5 mm.
+For stability power measurements, a fixed uncertainty of 0.1 mW applies.
 For longitudinal peak frequencies, no measurement uncertainty is specified
 or included; comparisons retain only the resonator-length uncertainty.
 Fits use absolute uncertainties, including x uncertainties and common
@@ -18,6 +20,8 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parent
+LENGTH_SIGMA_MM = 0.5
+LENGTH_SIGMA_CM = 0.1
 BUILD = ROOT / "build"
 BUILD.mkdir(exist_ok=True)
 for variable, directory in (("MPLCONFIGDIR", "matplotlib-cache"),
@@ -88,7 +92,7 @@ def read_peak_spectra(name):
             continue
         if len(tokens) < 2:
             raise ValueError("Each resonator length needs at least one peak.")
-        length = ufloat(float(tokens[0]), last_digit(tokens[0])) / 100
+        length = ufloat(float(tokens[0]), LENGTH_SIGMA_CM) / 100
         spectra.append(PeakSpectrum(tokens[0], tokens[1:], length,
                                     tuple(float(token) for token in tokens[1:])))
     return spectra
@@ -96,7 +100,7 @@ def read_peak_spectra(name):
 
 def mean_mode_spacing(frequencies):
     """Arithmetic mean of f_n/n, without an assumed frequency uncertainty."""
-    return sum(frequency / h for h, frequency in enumerate(frequencies, 1)) / len(frequencies)
+    return sum(frequency / n for n, frequency in enumerate(frequencies, 1)) / len(frequencies)
 
 
 @dataclass
@@ -261,12 +265,15 @@ def tex_uncertain(value):
     return r"\num{" + format(value, ".2u").replace("+/-", "+-") + "}"
 
 
-def table(name, caption, label, headings, rows):
+def table(name, caption, label, headings, rows, *, upper_headings=None, alignment="r", colspec=None):
+    header_rows = [upper_headings, headings] if upper_headings else [headings]
+    header_style = "row{1,2}" if upper_headings else "row{1}"
     text = [r"\begin{table}[H]", r"\centering", r"\small", rf"\caption{{{caption}}}",
             rf"\label{{{label}}}",
-            r"\begin{tblr}{colspec={" + " ".join("r" for _ in headings)
-            + r"}, rowsep=1pt, row{1}={guard, mode=math}}", r"\toprule",
-            " & ".join(headings) + r" \\", r"\midrule"]
+            r"\begin{tblr}{colspec={" + (colspec or " ".join(alignment for _ in headings))
+            + r"}, rowsep=1pt, " + header_style + r"={guard, mode=math}}", r"\toprule"]
+    text += [" & ".join(row) + r" \\" for row in header_rows]
+    text += [r"\midrule"]
     text += [" & ".join(row) + r" \\" for row in rows]
     text += [r"\bottomrule", r"\end{tblr}", r"\end{table}", ""]
     (BUILD / name).write_text("\n".join(text), encoding="utf-8")
@@ -292,13 +299,13 @@ def main():
         with Image.open(ROOT / "data" / f"{mode}.HEIC") as photo:
             ImageOps.exif_transpose(photo).convert("RGB").save(BUILD / f"tem{mode}_foto.png")
 
-    zero = read_data("00_mode.txt")
-    first = read_data("10_mode.txt")
-    polarisation = read_data("polarisation.txt", sigma_overrides={1: 0.001})
+    zero = read_data("00_mode.txt", sigma_overrides={0: LENGTH_SIGMA_MM})
+    first = read_data("10_mode.txt", sigma_overrides={0: LENGTH_SIGMA_MM})
+    polarisation = read_data("polarisation.txt")
     stability = [read_data(f"stabilitätsbedingung_{i}.txt",
-                           sigma_overrides={0: 0.1, 1: 0.1}) for i in (1, 2)]
+                           sigma_overrides={0: LENGTH_SIGMA_CM, 1: 0.1}) for i in (1, 2)]
     longitudinal = read_peak_spectra("longitudinalmoden.txt")
-    wavelength = [read_data(f"wellenlänge_{i}.txt") for i in (1, 2)]
+    wavelength = [read_data(f"wellenlänge_{i}.txt", sigma_overrides={0: LENGTH_SIGMA_MM}) for i in (1, 2)]
 
     for prefix, data, model, initial, kind, filename in (
         ("vZero", zero, gaussian, [1, -7, 10, 0], "gaussian", "tem00.pdf"),
@@ -324,13 +331,13 @@ def main():
         fit_plot(filename, data, model, fit, kind)
 
     for data, name, label, caption in (
-        (zero, "table_tem00.tex", "tab:v61-tem00", r"Messwerte des TEM$_{00}$-Profils. Für jede Position gilt $\Delta x=\qty{1}{\milli\meter}$. Die Leistungsunsicherheiten folgen der letzten notierten Stelle."),
-        (first, "table_tem10.tex", "tab:v61-tem10", r"Messwerte des TEM$_{10}$-Profils mit $\Delta x=\qty{1}{\milli\meter}$."),
+        (zero, "table_tem00.tex", "tab:v61-tem00", r"Messwerte des TEM$_{00}$-Profils: gemessene Leistung $P$ als Funktion der transversalen Photodiodenposition $x$. Für die Positionsunsicherheit gilt $\Delta x=\qty{0.5}{\milli\meter}$. Die Leistungsunsicherheiten folgen der letzten notierten Stelle."),
+        (first, "table_tem10.tex", "tab:v61-tem10", r"Messwerte des TEM$_{10}$-Profils: gemessene Leistung $P$ als Funktion der transversalen Photodiodenposition $x$. Die Positionsunsicherheit beträgt $\Delta x=\qty{0.5}{\milli\meter}$. Die Leistungsunsicherheiten folgen der letzten notierten Stelle."),
     ):
         two_halves(name, data, caption, label,
                    r"x/\unit{\milli\meter}", r"P/\unit{\milli\watt}")
     two_halves("table_polarisation.tex", polarisation,
-               r"Polarisationsmessung. Für alle Winkel gilt $\Delta\varphi=\qty{1}{\degree}$ und für alle Leistungsmessungen gilt $\Delta P=\qty{0.001}{\milli\watt}$.",
+               r"Polarisationsmessung: gemessene Leistung $P$ in Abhängigkeit vom Winkel $\varphi$ des Polarisationsfilters. Die Winkelunsicherheit beträgt $\Delta\varphi=\qty{1}{\degree}$, die Leistungsunsicherheit $\Delta P=\qty{0.01}{\milli\watt}$.",
                "tab:v61-polarisation", r"\varphi/\unit{\degree}", r"P/\unit{\milli\watt}",
                show_uncertainties=False)
 
@@ -345,7 +352,7 @@ def main():
                 row += ["", ""]
         rows.append(row)
     table("table_stability.tex",
-          r"Messdaten zur Resonatorstabilität. Die ersten beiden Spalten gehören zu $R_1=R_2=\qty{140}{\centi\meter}$, die letzten beiden zum plan-konkaven Resonator mit $R_2=\qty{140}{\centi\meter}$. Für alle Längenmessungen gilt $\Delta L=\qty{1}{\milli\meter}$ und für alle Leistungsmessungen gilt $\Delta P=\qty{0.1}{\milli\watt}$.",
+          r"Messdaten zur Resonatorstabilität: gemessene Leistung $P$ bei der Resonatorlänge $L$. Die Indizes $\mathrm{kk}$ und $\mathrm{pk}$ bezeichnen die konkav-konkave bzw. plan-konkave Spiegelkonfiguration. Für die in Zentimetern notierten Längenmessungen gilt $\Delta L=\qty{1}{\milli\meter}$ und für alle Leistungsmessungen gilt $\Delta P=\qty{0.1}{\milli\watt}$.",
           "tab:v61-stabilitaet", [r"L_{\mathrm{kk}}/\unit{\centi\meter}",
           r"P_{\mathrm{kk}}/\unit{\milli\watt}", r"L_{\mathrm{pk}}/\unit{\centi\meter}",
           r"P_{\mathrm{pk}}/\unit{\milli\watt}"], rows)
@@ -373,7 +380,7 @@ def main():
     quantity("vStableLast", stability[0].uncertain[-1, 0], r"\centi\meter")
     quantity("vPlanLast", stability[1].uncertain[2, 0], r"\centi\meter")
 
-    # Each f_h/h estimates the same spacing. Average within each spectrum;
+    # Each f_n/n estimates the same spacing. Average within each spectrum;
     # the measured length enters the theoretical comparison once, with its error.
     L = np.array([spectrum.length.n for spectrum in longitudinal])
     sL = np.array([spectrum.length.s for spectrum in longitudinal])
@@ -393,15 +400,15 @@ def main():
              *([r"\textemdash"] * (peak_count - len(spectrum.frequencies)))]
             for spectrum in longitudinal]
     table("table_longitudinal.tex",
-          r"Resonatorlängen und im FFT-Spektrum abgelesene Peakpositionen. Für alle Längen gilt $\Delta L=\qty{0.1}{\centi\meter}$. Ein Strich kennzeichnet eine fehlende Peakangabe.",
+          r"Resonatorlängen $L$ und im FFT-Spektrum abgelesene Frequenzpositionen $f_n$ der Schwebungspeaks. $n$ nummeriert die Peaks nach aufsteigender Frequenz. Für die Längenunsicherheit gilt $\Delta L=\qty{0.1}{\centi\meter}$. Ein Strich kennzeichnet eine fehlende Peakangabe.",
           "tab:v61-longitudinal", [r"L/\unit{\centi\meter}",
-          *[rf"f_{h}/\unit{{\mega\hertz}}" for h in range(1, peak_count + 1)]], rows)
+          *[rf"f_{n}/\unit{{\mega\hertz}}" for n in range(1, peak_count + 1)]], rows)
     rows = [[raw(spectrum.length_text), raw(str(len(spectrum.frequencies))),
              raw(f"{spacing:.2f}"), tex_uncertain(theory), tex_uncertain(difference)]
             for spectrum, spacing, theory, difference
             in zip(longitudinal, spacings, expected, differences)]
     table("table_mode_spacings.tex",
-          r"Gemessene und theoretische Modenabstände. $N$ ist die Anzahl der berücksichtigten Peaks und $d_\nu=\overline{\Delta\nu}-\Delta\nu_{\mathrm{theo}}$ die Abweichung vom theoretischen Wert.",
+          r"Modenabstände bei der Resonatorlänge $L$: $\overline{\Delta\nu}$ ist der aus den Messwerten ermittelte mittlere Modenabstand, $\Delta\nu_{\mathrm{theo}}=c/(2L)$ der theoretische Modenabstand mit der Lichtgeschwindigkeit $c$. $N$ ist die Anzahl der berücksichtigten Peaks und $d_\nu=\overline{\Delta\nu}-\Delta\nu_{\mathrm{theo}}$ die Abweichung vom theoretischen Wert.",
           "tab:v61-mode-spacings", [r"L/\unit{\centi\meter}", r"N",
           r"\overline{\Delta\nu}/\unit{\mega\hertz}",
           r"\Delta\nu_{\mathrm{theo}}/\unit{\mega\hertz}",
@@ -416,8 +423,8 @@ def main():
         {"length_cm": value_and_sigma(spectrum.length * 100),
          "peak_count": len(spectrum.frequencies),
          "frequencies_MHz": [value_and_sigma(frequency) for frequency in spectrum.frequencies],
-         "normalized_frequencies_MHz": [value_and_sigma(frequency / h)
-                                        for h, frequency in enumerate(spectrum.frequencies, 1)],
+         "normalized_frequencies_MHz": [value_and_sigma(frequency / n)
+                                        for n, frequency in enumerate(spectrum.frequencies, 1)],
          "spacing_MHz": value_and_sigma(spacing), "theory_MHz": value_and_sigma(theory),
          "difference_MHz": value_and_sigma(difference),
          "relative_difference_percent": value_and_sigma(deviation),
@@ -456,11 +463,16 @@ def main():
         if "Positionen [mm]" not in data.header:
             raise ValueError("Check wavelength position units; mm must be confirmed.")
         token = re.search(r"Schirm\s+([\d.,]+)cm", data.header)[1].replace(",", ".")
-        distances.append((float(token) * 10, last_digit(token) * 10))
-    order = np.arange(2, -3, -1)
+        distances.append((float(token) * 10, LENGTH_SIGMA_CM * 10))
+    orders = []
+    for data in wavelength:
+        zero = np.flatnonzero(np.isclose(data.values[:, 0], 6.0))
+        if len(zero) != 1:
+            raise ValueError("Each grating series must contain one zero-order maximum at 6 mm.")
+        orders.append(zero[0] - np.arange(len(data.values)))
     wave_fits = []
-    for name, data, density, (distance, distance_sigma) in zip(
-            ("One", "Two"), wavelength, densities, distances):
+    for name, data, order, density, (distance, distance_sigma) in zip(
+            ("One", "Two"), wavelength, orders, densities, distances):
         fit = fit_wavelength(data, order, density, distance, distance_sigma)
         wave_fits.append(fit)
         prefix = f"vWave{name}"
@@ -469,32 +481,41 @@ def main():
         quantity(prefix + "Distance", fit.parameters[2], r"\milli\meter")
         quantity(prefix + "Deviation", (fit.parameters[0] / 632.8 - 1) * 100, r"\percent")
         fit_statistics(prefix, fit)
+        number(prefix + "ReferenceSigma", abs(fit.parameters[0].n - 632.8) / fit.parameters[0].s)
         quantity(f"vScreenDistance{name}", ufloat(distance, distance_sigma) / 10,
                  r"\centi\meter")
-    rows = [[raw(str(int(m))), raw_uncertainty(wavelength[0].text[j][0]),
-             raw_uncertainty(wavelength[1].text[j][0])]
-            for j, m in enumerate(order)]
-    distance_caption = (r"Der Schirmabstand beträgt jeweils \mbox{$d=\vScreenDistanceOne$}."
+    positions_by_order = [dict(zip(order, data.text))
+                          for order, data in zip(orders, wavelength)]
+    rows = [[raw(str(int(m))),
+             *[positions[m][0] + "+-" + str(LENGTH_SIGMA_MM)
+               if m in positions else r"\SetCell{guard} ---"
+               for positions in positions_by_order]]
+            for m in sorted(set(np.concatenate(orders)), reverse=True)]
+    distance_caption = (r"Der Abstand $d$ zwischen Gitter und Schirm beträgt jeweils \mbox{$d=\vScreenDistanceOne$}."
                         if distances[0] == distances[1] else
                         r"Die Schirmabstände betragen \mbox{$d_1=\vScreenDistanceOne$} und \mbox{$d_2=\vScreenDistanceTwo$}.")
     table("table_wavelength.tex",
-          r"Gemessene Positionen der Gittermaxima für die Messreihen 1 und 2. " + distance_caption,
-          "tab:v61-wellenlaenge", [r"m", r"y_1/\unit{\milli\meter}", r"y_2/\unit{\milli\meter}"], rows)
+          r"Gemessene Positionen $y_m$ der Gittermaxima der Beugungsordnung $m$ für die beiden Gitter mit der Liniendichte $N$. " + distance_caption,
+          "tab:v61-wellenlaenge",
+          [r"m", r"y_m/\unit{\milli\meter}", r"y_m/\unit{\milli\meter}"], rows,
+          upper_headings=[r"\text{Beugungsordnung}",
+                          r"N=\qty[per-mode=reciprocal]{80}{\per\milli\meter}",
+                          r"N=\qty[per-mode=reciprocal]{100}{\per\milli\meter}"],
+          alignment="c",
+          colspec=r"c S[table-format=-2.1(1),table-align-uncertainty=true] S[table-format=-2.1(1),table-align-uncertainty=true]")
     fig, axes = plt.subplots(1, 2, figsize=(5.78, 3.4), sharey=True)
-    grid = np.linspace(-2.05, 2.05, 300)
-    for ax, data, density, fit, (distance, _), color in zip(
-            axes, wavelength, densities, wave_fits, distances, colors):
+    for ax, data, order, density, fit, color in zip(
+            axes, wavelength, orders, densities, wave_fits, colors):
+        grid = np.linspace(order.min() - .05, order.max() + .05, 300)
         ax.errorbar(order, data.values[:, 0], yerr=data.sigma[:, 0],
                     fmt="o", color="black", markersize=3, capsize=2, label="Messwerte")
         ax.plot(grid, grating_position(grid, *fit.values, density),
                 color=color, label="Fit")
-        ax.plot(grid, grating_position(grid, 632.8, fit.values[1], distance, density),
-                linestyle="--", color="tab:green", label=r"$\lambda=\qty{632.8}{\nano\meter}$")
-        ax.set(xlabel=r"Beugungsordnung $m$", title=rf"$N={density:g}\,\unit{{\per\milli\meter}}$",
-               xticks=[-2, -1, 0, 1, 2])
+        ax.set(xlabel=r"Beugungsordnung $m$", title=rf"$N={density:g}\,\unit[per-mode=reciprocal]{{\per\milli\meter}}$",
+               xticks=sorted(order))
+        ax.legend(fontsize=7, loc="upper left")
         ax.grid(alpha=.25)
     axes[0].set_ylabel(r"$y \mathbin{/} \unit{\milli\meter}$")
-    axes[1].legend(fontsize=7, loc="upper left")
     save(fig, "wellenlaenge.pdf")
 
     macro_text = "% Generated by plot.py; do not edit manually.\n"
