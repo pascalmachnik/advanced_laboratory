@@ -1,3 +1,4 @@
+\newpage
 \section{Auswertung}
 \label{sec:Auswertung}
 \input{build/results.tex}
@@ -8,144 +9,95 @@ Im Folgenden werden die Messergebnisse des Versuchs dokumentiert
 und die Auswertung dieser beschrieben. \\
 
 Die Messunsicherheit wird durch die Ablesegenauigkeit der verwendeten Messgeräte bestimmt.
-Die Ablesegenauigkeit der Längenmessung beträgt $\pm\qty{1}{\milli\meter}$ und die der Winkelmessung 
+Für Längenmessungen, die in Zentimetern notiert sind, beträgt die Ablesegenauigkeit
+$\pm\qty{1}{\milli\meter}$. Für in Millimetern
+notierte Längenmessungen beträgt sie $\pm\qty{0.5}{\milli\meter}$, da ein anderes
+Messgerät verwendet wird. Die Ablesegenauigkeit der Winkelmessung beträgt
 $\pm\qty{1}{\degree}$. Die Ablesegenauigkeit der Leistungsmessung ist durch die Schwankung der gemessenen
-Laserleistung begrenzt. Daher wird die Leistung bis zur letzten signifikanten Ziffer angegeben, die sich 
-aus der Schwankung der Messwerte ergibt. Die Unsicherheit dieser Messwerte wird auf $\pm\num{1}$ der 
-letzten signifikanten Ziffer geschätzt. Die Unsicherheiten der Messwerte werden in den Tabellen angegeben.
+Laserleistung begrenzt. Daher wird die Leistung bis zur letzten signifikanten Ziffer angegeben, die sich
+aus der Schwankung der Messwerte ergibt. Die Unsicherheit dieser Messwerte wird auf $\pm\num{1}$ der
+letzten signifikanten Ziffer geschätzt.
+Die angegebenen Unsicherheiten werden in den Fits und der Fehlerfortpflanzung
+als Standardunsicherheiten behandelt.
 Die Fehlerfortpflanzung erfolgt mit dem Python-Paket \texttt{uncertainties} \cite{uncertainties}.
 
-\subsection{Stabilitätsbedingung}
-\label{subsec:v61-stabilitaet}
+\subsection{Messung der Wellenlänge}
+\label{subsec:v61-wellenlaenge}
 
-Für diesen Versuchsteil werden zwei Resonatoraufbauten mit unterschiedlichen Spiegelkonfigurationen untersucht.
-Der konkav-konkave Resonator besteht aus zwei konkaven Spiegeln mit Krümmungsradien 
-$r_1=r_2=\qty{1400}{\milli\meter}$, der plan-konkave Resonator aus einem konkaven Spiegel mit
-Krümmungsradius $r_1=\qty{1400}{\milli\meter}$ und einem planen Spiegel. Im Folgenden wird die Notation $kk$
-für die konkav-konkave und $pk$ für die plan-konkave Konfiguration verwendet.
-Die Leistungen für die beiden Spiegelkonfigurationen sind in
-\autoref{tab:v61-stabilitaet} zusammengestellt. Mit den angegebenen
-Krümmungsradien ergeben sich die Stabilitätsparameter
-\begin{align}
-  G_{\mathrm{kk}}(L) &= g_1g_2
-    =\left(1-\frac{L}{\qty{140}{\centi\meter}}\right)^2, \\
-  G_{\mathrm{pk}}(L) &= g_1g_2
-    =1-\frac{L}{\qty{140}{\centi\meter}}.
-  \label{eq:v61-stabilitaet}
-\end{align}
-Dabei bezeichnet $L$ die Resonatorlänge und $g_1$ und $g_2$ die Stabilitätsparameter der beiden Spiegel.
-Die Stabilitätsbedingung $0\leq g_1g_2\leq1$ liefert die oberen
-geometrischen Grenzen $L_{\mathrm{kk,max}}=\qty{280}{\centi\meter}$ und
-$L_{\mathrm{pk,max}}=\qty{140}{\centi\meter}$.
-\autoref{fig:v61-stabilitaet} zeigt die Leistungen sowie die theoretischen
-Stabilitätsparameter. Ein Leistungsfit wird nicht vorgenommen, da aus der
-geometrischen Stabilitätsbedingung keine Leistungsfunktion folgt.
+Die zwei verwendeten Gitter besitzen die Liniendichten $N_1=\qty[per-mode=reciprocal]{80}{\per\milli\meter}$
+und $N_2=\qty[per-mode=reciprocal]{100}{\per\milli\meter}$. Mit der Gitterkonstante $b=1/N$
+gilt bei senkrechtem Einfall
+\begin{equation*}
+  m\lambda=b\sin\theta_m.
+\end{equation*}
+Für die Position $y_m$ des Maximums der Ordnung $m$ folgt aus der
+Schirmgeometrie mit dem Schirmabstand $d$ und der Position $y_0$
+des zentralen Maximums
+\begin{equation*}
+  y_m-y_0=d\tan\theta_m
+  =d\frac{\sin\theta_m}{\sqrt{1-\sin^2\theta_m}}.
+\end{equation*}
+Einsetzen von $\sin\theta_m=m\lambda/b$ und Umstellen nach $y_m$
+liefert die Fitfunktion
+\begin{equation}
+  y_m=y_0+d\frac{m\lambda/b}{\sqrt{1-(m\lambda/b)^2}}.
+  \label{eq:v61-gitter}
+\end{equation}
+Bei beiden Gittern entspricht die gemessene Position $y=\qty{6}{\milli\meter}$
+dem Maximum nullter Ordnung. Die Messwerte in \autoref{tab:v61-wellenlaenge}
+werden in der notierten Reihenfolge für das erste Gitter den Ordnungen
+$m=3,2,1,0,-1$ und für das zweite Gitter den Ordnungen $m=2,1,0,-1,-2$
+zugeordnet und für jedes Gitter getrennt gefittet. Dabei werden die Positions- und Schirmabstandsunsicherheiten
+berücksichtigt und $y_0$ jeweils mitbestimmt.
 
-\input{build/table_stability.tex} 
+\input{build/table_wavelength.tex}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{build/stabilitaet.pdf}
-  \caption{Gemessene Leistung und theoretische Stabilitätsparameter der beiden Resonatoren.
-  Der grüne Bereich kennzeichnet $0\leq g_1g_2\leq1$, die senkrechten
-  Linien markieren die theoretischen oberen Längengrenzen.}
-  \label{fig:v61-stabilitaet}
-\end{figure}
-\FloatBarrier
-
-\subsection{Transversale Moden}
-\label{subsec:v61-tem}
-
-Die Leistungsprofile werden mit Fits an die Hermite-Gauß-Verteilungen
-unter Berücksichtigung eines konstanten Untergrunds $B$ ausgewertet:
-\begin{align}
-  P_{00}(x) &= B+A\exp\left[-2\frac{(x-x_0)^2}{w^2}\right],
-    \label{eq:v61-tem00} \\
-  P_{10}(x) &= B+A\,2\mathrm{e}\,\frac{(x-x_0)^2}{w^2}
-    \exp\left[-2\frac{(x-x_0)^2}{w^2}\right].
-    \label{eq:v61-tem10}
-\end{align}
-Dabei ist $w$ ein Maß für die Breite des Strahls und $x_0$ die Profilmitte.
-Die Normierung ist so gewählt, dass $A$ bei beiden Modellen die
-Maximalleistung über dem Untergrund angibt.
-
-\subsubsection{Grundmode TEM\texorpdfstring{$_{00}$}{00}}
-
-\autoref{tab:v61-tem00} enthält sämtliche Messwerte der Grundmode.
-Der Fit in \autoref{fig:v61-tem00} ergibt
+Die Fits in \autoref{fig:v61-wellenlaenge} liefern
 \begin{align*}
-  A_{00}&=\vZeroA, & x_{0,00}&=\vZeroCentre, \\
-  w_{00}&=\vZeroWidth, & B_{00}&=\vZeroB.
+  N_1=\qty[per-mode=reciprocal]{80}{\per\milli\meter}:\quad
+  &\lambda_1=\vWaveOne,\quad
+  \chi^2_{\nu,1}=\vWaveOneChi,\quad \nu_1=\vWaveOneDof, \\
+  N_2=\qty[per-mode=reciprocal]{100}{\per\milli\meter}:\quad
+  &\lambda_2=\vWaveTwo,\quad
+  \chi^2_{\nu,2}=\vWaveTwoChi,\quad \nu_2=\vWaveTwoDof.
 \end{align*}
-Mit $\nu=\vZeroDof$ Freiheitsgraden beträgt das reduzierte
-$\chi^2_\nu=\vZeroChi$.
+Die ebenfalls bestimmten Positionsnullpunkte sind
+\begin{equation*}
+  y_{0,1}=\vWaveOneCentre,\qquad y_{0,2}=\vWaveTwoCentre.
+\end{equation*}
 
-\input{build/table_tem00.tex}
+Die prozentualen Abweichungen von der Referenzwellenlänge
+$\lambda_{\mathrm{ref}}=\qty{632.8}{\nano\meter}$ \cite[2]{eLas_HeNe}
+werden mit
+\begin{equation*}
+  \delta_{\lambda,i}=\frac{\lambda_i-\lambda_{\mathrm{ref}}}
+    {\lambda_{\mathrm{ref}}}\cdot\qty{100}{\percent}
+\end{equation*}
+berechnet. Dabei wird die Referenzwellenlänge als fest angenommen und die
+Unsicherheit des jeweiligen Fitwerts fortgepflanzt. Es ergibt sich
+\begin{equation*}
+  \delta_{\lambda,1}=\vWaveOneDeviation,\qquad
+  \delta_{\lambda,2}=\vWaveTwoDeviation.
+\end{equation*}
+
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{0.85\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{build/tem00.pdf}
-    \caption{Gemessenes Leistungsprofil mit Fit.}
-  \end{subfigure}
-
-  \medskip
-  \begin{subfigure}{0.75\textwidth}
-    \centering
-    \includegraphics[trim={1410bp 1169bp 1722bp 1180bp},clip,width=\linewidth]{build/tem00_foto.png}
-    \caption{Ausschnitt der fotografischen Aufnahme der TEM$_{00}$-Mode.}
-  \end{subfigure}
-  \caption{Gemessenes TEM$_{00}$-Profil mit Fit nach
-  \autoref{eq:v61-tem00} und fotografische Aufnahme des Modenbildes.}
-  \label{fig:v61-tem00}
+  \includegraphics[width=\textwidth]{build/wellenlaenge.pdf}
+  \caption{Messwerte und getrennte Fits nach \autoref{eq:v61-gitter}
+  für die beiden Gitter.}
+  \label{fig:v61-wellenlaenge}
 \end{figure}
 \FloatBarrier
 
-\subsubsection{Erste transversale Mode TEM\texorpdfstring{$_{10}$}{10}}
-
-Die Messwerte in \autoref{tab:v61-tem10} zeigen zwei Maxima mit einem
-Minimum dazwischen, charakteristisch für die TEM$_{10}$-Mode. Der Fit der Messwerte
-an \autoref{eq:v61-tem10} ergeben
-\begin{align*}
-  A_{10}&=\vFirstA, & x_{0,10}&=\vFirstCentre, \\
-  w_{10}&=\vFirstWidth, & B_{10}&=\vFirstB.
-\end{align*}
-Das reduzierte $\chi^2_\nu=\vFirstChi$ gehört zu
-$\nu=\vFirstDof$ Freiheitsgraden.
-\autoref{fig:v61-tem10} zeigt den zugehörigen Fit und die fotografische Aufnahme.
-
-\input{build/table_tem10.tex}
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}{0.85\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{build/tem10.pdf}
-    \caption{Gemessenes Leistungsprofil mit Fit.}
-  \end{subfigure}
-
-  \medskip
-  \begin{subfigure}{0.75\textwidth}
-    \centering
-    \includegraphics[trim={1330bp 1219bp 1582bp 965bp},clip,width=\linewidth]{build/tem10_foto.png}
-    \caption{Ausschnitt der fotografischen Aufnahme der TEM$_{10}$-Mode.}
-  \end{subfigure}
-  \caption{Gemessenes TEM$_{10}$-Profil mit Fit an die symmetrische
-  Hermite-Gauß-Verteilung nach \autoref{eq:v61-tem10} und fotografische
-  Aufnahme des Modenbildes.}
-  \label{fig:v61-tem10}
-\end{figure}
-\FloatBarrier
-
-\subsection{Polarisation}
+\subsection{Bestimmung der Polarisation}
 \label{subsec:v61-polarisation}
 
 Die Winkelabhängigkeit der Leistung aus
 \autoref{tab:v61-polarisation} wird mit einem Fit an das Malus-Gesetz
 einschließlich eines konstanten Untergrundterms ausgewertet:
-\begin{equation}
+\begin{equation*}
   P(\varphi)=B+A\cos^2(\varphi-\varphi_0).
-  \label{eq:v61-malus}
-\end{equation}
+\end{equation*}
 Der Fit in \autoref{fig:v61-polarisation} liefert
 \begin{equation*}
   A=\vPolA,\qquad \varphi_0=\vPolTheta,\qquad B=\vPolB.
@@ -163,22 +115,152 @@ Die Fitgüte beträgt $\chi^2_\nu=\vPolChi$ bei $\nu=\vPolDof$.
 \end{figure}
 \FloatBarrier
 
+\subsection{Vermessung der TEM-Moden}
+\label{subsec:v61-tem}
+
+\providecommand{\theoryeqref}[1]{\autoref{#1}}
+Die Leistungsprofile werden mit Fits an die Hermite-Gauß-Verteilungen aus
+\theoryeqref{eqn:Intensität00} und \theoryeqref{eqn:Intensität10} ausgewertet.
+Für den eindimensionalen Scan wird die transversale Koordinate durch $x-x_0$
+ersetzt und ein konstanter Untergrund $B$ berücksichtigt. Die Fitfunktionen lauten:
+\begin{align}
+  P_{00}(x) &= B+A\exp\left[-2\frac{(x-x_0)^2}{w^2}\right],
+    \label{eq:v61-tem00} \\
+  P_{10}(x) &= B+A\,2\mathrm{e}\,\frac{(x-x_0)^2}{w^2}
+    \exp\left[-2\frac{(x-x_0)^2}{w^2}\right].
+    \label{eq:v61-tem10}
+\end{align}
+Dabei ist $w$ ein Maß für die Breite des Strahls und $x_0$ die Profilmitte.
+Der Fitparameter $A$ ist so gewählt, dass er die Höhe der Maxima über dem
+Untergrund $B$ beschreibt. Für die TEM$_{10}$-Mode wird daher eine andere
+Normierung als in \theoryeqref{eqn:Intensität10} verwendet.
+
+\subsubsection{Grundmode TEM\texorpdfstring{$_{00}$}{00}}
+
+\autoref{tab:v61-tem00} enthält sämtliche Messwerte der Grundmode.
+Der Fit nach \autoref{eq:v61-tem00} in \autoref{fig:v61-tem00} ergibt
+\begin{align*}
+  A_{00}&=\vZeroA, & x_{0,00}&=\vZeroCentre, \\
+  w_{00}&=\vZeroWidth, & B_{00}&=\vZeroB.
+\end{align*}
+Mit $\nu=\vZeroDof$ Freiheitsgraden beträgt das reduzierte
+$\chi^2_\nu=\vZeroChi$.
+
+\input{build/table_tem00.tex}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.85\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{build/tem00.pdf}
+    \caption{Gemessenes Leistungsprofil mit Fit nach \autoref{eq:v61-tem00}.}
+  \end{subfigure}
+
+  \medskip
+  \begin{subfigure}{0.75\textwidth}
+    \centering
+    \includegraphics[trim={1410bp 1169bp 1722bp 1180bp},clip,width=\linewidth]{build/tem00_foto.png}
+    \caption{Ausschnitt der fotografischen Aufnahme der TEM$_{00}$-Mode.}
+  \end{subfigure}
+  \caption{Gemessenes TEM$_{00}$-Profil mit Fit nach \autoref{eq:v61-tem00}
+  und fotografische Aufnahme des Modenbildes.}
+  \label{fig:v61-tem00}
+\end{figure}
+\FloatBarrier
+
+\subsubsection{Erste transversale Mode TEM\texorpdfstring{$_{10}$}{10}}
+
+Die Messwerte in \autoref{tab:v61-tem10} zeigen zwei Maxima mit einem
+Minimum dazwischen, charakteristisch für die TEM$_{10}$-Mode. Der Fit der Messwerte
+nach \autoref{eq:v61-tem10} ergibt
+\begin{align*}
+  A_{10}&=\vFirstA, & x_{0,10}&=\vFirstCentre, \\
+  w_{10}&=\vFirstWidth, & B_{10}&=\vFirstB.
+\end{align*}
+Das reduzierte $\chi^2_\nu=\vFirstChi$ gehört zu
+$\nu=\vFirstDof$ Freiheitsgraden.
+\autoref{fig:v61-tem10} zeigt den zugehörigen Fit und die fotografische Aufnahme.
+
+\input{build/table_tem10.tex}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.85\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{build/tem10.pdf}
+    \caption{Gemessenes Leistungsprofil mit Fit nach \autoref{eq:v61-tem10}.}
+  \end{subfigure}
+
+  \medskip
+  \begin{subfigure}{0.75\textwidth}
+    \centering
+    \includegraphics[trim={1330bp 1219bp 1582bp 965bp},clip,width=\linewidth]{build/tem10_foto.png}
+    \caption{Ausschnitt der fotografischen Aufnahme der TEM$_{10}$-Mode.}
+  \end{subfigure}
+  \caption{Gemessenes TEM$_{10}$-Profil mit Fit nach \autoref{eq:v61-tem10}
+  und fotografische Aufnahme des Modenbildes.}
+  \label{fig:v61-tem10}
+\end{figure}
+\FloatBarrier
+
+\subsection{Stabilität bei verschiedenen Resonatorlängen}
+\label{subsec:v61-stabilitaet}
+
+Im Folgenden wird die Notation $\mathrm{kk}$ für die konkav-konkave und
+$\mathrm{pk}$ für die plan-konkave Konfiguration verwendet.
+Die Leistungen für die beiden Spiegelkonfigurationen sind in
+\autoref{tab:v61-stabilitaet} zusammengestellt. Mit den angegebenen
+Krümmungsradien ergeben sich die Stabilitätsparameter
+\begin{align*}
+  G_{\mathrm{kk}}(L) &= g_1g_2
+    =\left(1-\frac{L}{\qty{140}{\centi\meter}}\right)^2, \\
+  G_{\mathrm{pk}}(L) &= g_1g_2
+    =1-\frac{L}{\qty{140}{\centi\meter}}.
+\end{align*}
+Dabei bezeichnet $L$ die Resonatorlänge und $g_1$ und $g_2$ die Stabilitätsparameter der beiden Spiegel.
+Die Stabilitätsbedingung aus \theoryeqref{eqn:Stabilitätsbedingung} liefert die oberen
+geometrischen Grenzen $L_{\mathrm{kk,max}}=\qty{280}{\centi\meter}$ und
+$L_{\mathrm{pk,max}}=\qty{140}{\centi\meter}$.
+\autoref{fig:v61-stabilitaet} zeigt die Leistungen sowie die theoretischen
+Stabilitätsparameter. Ein Leistungsfit wird nicht vorgenommen, da aus der
+geometrischen Stabilitätsbedingung keine Leistungsfunktion folgt.
+
+\input{build/table_stability.tex}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{build/stabilitaet.pdf}
+  \caption{Gemessene Leistung und theoretische Stabilitätsparameter der beiden Resonatoren.
+  Der grüne Bereich kennzeichnet $0\leq g_1g_2\leq1$, die senkrechten
+  Linien markieren die theoretischen oberen Längengrenzen.}
+  \label{fig:v61-stabilitaet}
+\end{figure}
+\FloatBarrier
+
 \subsection{Multimodenbetrieb und Frequenzspektrum}
 \label{subsec:v61-longitudinal}
 
-Die Peaks werden im Frequenzspektrum abgelesen, das mit Hilfe einer
-schnellen Fouriertransformation (FFT) der longitudinalen Modenschwebung
-gewonnen wird. Ihre Frequenzpositionen und Abstände werden mit dem
+Im Frequenzspektrum des Lasers im Multimodenbetrieb, das mithilfe einer
+schnellen Fourier-Transformation (FFT) der longitudinalen Modenschwebungen
+gewonnen wird, werden die Schwebungsfrequenzen zwischen den longitudinalen
+Moden als Peaks erfasst. Ihre Frequenzpositionen und Abstände werden mit dem
 theoretisch vorhergesagten Modenabstand $\Delta\nu$ verglichen. Es gilt
-\begin{equation}
+\begin{equation*}
   \Delta\nu=\frac{c}{2L},\qquad f_n(L)=n\frac{c}{2L},\qquad
   n=1,2,\ldots.
-  \label{eq:v61-longitudinal}
-\end{equation}
+\end{equation*}
 Die gemessenen Peakpositionen sind in \autoref{tab:v61-longitudinal}
-angegeben. \autoref{tab:v61-mode-spacings} stellt die daraus ermittelten
+angegeben. Die Peaks werden als aufeinanderfolgende Harmonische der
+Grundschwebung interpretiert, beginnend mit $n=1$. Jeder Quotient $f_n/n$
+liefert damit eine Schätzung des Modenabstands. Für jedes Spektrum mit $N$
+abgelesenen Peaks wird deren ungewichtetes arithmetisches Mittel berechnet:
+\begin{equation*}
+  \overline{\Delta\nu}=\frac{1}{N}\sum_{n=1}^{N}\frac{f_n}{n}.
+\end{equation*}
+Dabei wird vorausgesetzt, dass innerhalb der berücksichtigten Peakfolge
+keine Harmonische ausgelassen wurde.
+\autoref{tab:v61-mode-spacings} stellt die daraus ermittelten
 Modenabstände $\overline{\Delta\nu}$ den theoretischen Werten
-$\Delta\nu_{\mathrm{theo}}=c/(2L)$ gegenüber.
+$\Delta\nu_{\mathrm{theo}}=c/(2L)$ gegenüber. Die Unsicherheit der Frequenzmessung ist hierbei nicht berücksichtigt.
+
 
 \input{build/table_longitudinal.tex}
 \input{build/table_mode_spacings.tex}
@@ -193,67 +275,13 @@ $\Delta\nu_{\mathrm{theo}}=c/(2L)$ gegenüber.
 
 Für die Abschätzung der Dopplerbreite der Neon-Emission wird
 mangels gemessener Gastemperatur
-$T=\qty{293.15}{\kelvin}$ angenommen.
-
-Mit \mbox{$m_{\mathrm{Ne}}=\qty{20.1797}{u}$ \cite{NIST_Neon}}
-und \mbox{$\lambda_{\mathrm{ref}}=\qty{632.8}{\nano\meter}$ \cite[2]{eLas_HeNe}} ergibt sich die
-Halbwertsbreite
-\begin{equation}
+$T=\qty{293.15}{\kelvin}$ angenommen. Mit \mbox{$m_{\mathrm{Ne}}=\qty{20.1797}{u}$ \cite{NIST_Neon}}
+und \mbox{$\lambda_{\mathrm{ref}}=\qty{632.8}{\nano\meter}$ \cite[2]{eLas_HeNe}}
+ergibt sich nach \theoryeqref{eqn:Frequenz_Doppler} mit $f_0=c/\lambda_{\mathrm{ref}}$
+die volle Halbwertsbreite (FWHM) der Doppler-verbreiterten Linie
+\begin{equation*}
   \Delta\nu_{\mathrm D}
   =\frac{1}{\lambda_{\mathrm{ref}}}
     \sqrt{\frac{8 k_{\mathrm B}T\ln 2}{m_{\mathrm{Ne}}}}
   \approx\vDoppler\,\unit{\giga\hertz}.
-  \label{eq:v61-doppler}
-\end{equation}
-
-\subsection{Wellenlänge}
-\label{subsec:v61-wellenlaenge}
-
-Die Gitter besitzen die Liniendichten $N_1=\qty{80}{\per\milli\meter}$
-und $N_2=\qty{100}{\per\milli\meter}$. Mit der Gitterkonstante $b=1/N$
-gilt bei senkrechtem Einfall
-\begin{equation}
-  m\lambda=b\sin\theta_m.
-  \label{eq:v61-gitterbedingung}
-\end{equation}
-Für die Position $y_m$ des Maximums der Ordnung $m$ folgt aus der
-Schirmgeometrie mit dem Schirmabstand $d$ und der Position $y_0$
-des zentralen Maximums
-\begin{equation}
-  y_m-y_0=d\tan\theta_m
-  =d\frac{\sin\theta_m}{\sqrt{1-\sin^2\theta_m}}.
-\end{equation}
-Einsetzen von $\sin\theta_m=m\lambda/b$ und Umstellen nach $y_m$
-liefert die Fitfunktion
-\begin{equation}
-  y_m=y_0+d\frac{m\lambda/b}{\sqrt{1-(m\lambda/b)^2}}.
-  \label{eq:v61-gitter}
-\end{equation}
-Die Messwerte in \autoref{tab:v61-wellenlaenge} werden in der notierten
-Reihenfolge den Ordnungen $m=2,1,0,-1,-2$ zugeordnet und für jedes Gitter
-getrennt gefittet. Dabei werden die Positions- und Schirmabstandsunsicherheiten
-berücksichtigt und $y_0$ jeweils mitbestimmt.
-
-\input{build/table_wavelength.tex}
-
-Die Fits in \autoref{fig:v61-wellenlaenge} liefern
-\begin{align}
-  N_1=\qty{80}{\per\milli\meter}:\quad
-  &\lambda_1=\vWaveOne,\quad
-  \chi^2_{\nu,1}=\vWaveOneChi,\quad \nu_1=\vWaveOneDof, \\
-  N_2=\qty{100}{\per\milli\meter}:\quad
-  &\lambda_2=\vWaveTwo,\quad
-  \chi^2_{\nu,2}=\vWaveTwoChi,\quad \nu_2=\vWaveTwoDof.
-  \label{eq:v61-wellenlaenge-ergebnis}
-\end{align}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{build/wellenlaenge.pdf}
-  \caption{Messwerte und getrennte Fits nach \autoref{eq:v61-gitter}
-  für die beiden Gitter. Die gestrichelten Kurven zeigen die Erwartung
-  für \qty{632.8}{\nano\meter} bei den jeweils fitbestimmten
-  Positionsnullpunkten und notierten Schirmabständen.}
-  \label{fig:v61-wellenlaenge}
-\end{figure}
-\FloatBarrier
+\end{equation*}

@@ -1,0 +1,59 @@
+\section{Diskussion}
+\label{sec:Diskussion}
+
+In diesem Abschnitt werden die Ergebnisse der Versuche diskutiert und mögliche Fehlerquellen
+aufgezeigt.
+
+\subsection{Invertierender Verstärker}
+In der \ref{subsec:Auswertung_InvertierenderVerstaerker} wurden Abweichungen von unter $\qty{3.5}{\percent}$ gemessen. 
+Außerdem weisen die \autoref{plt:invertierenderVerstaerker1}, \ref{plt:invertierenderVerstaerker2} und \ref{plt:invertierenderVerstaerker3}  einen 
+zu erwartenden Verlauf auf und lassen sich gut an eine typische Low Pass Filter Funktion \ref{eq:lowPassFilter} fitten.
+Die Messungen bestätigen somit die Theoretischen Erwartungen.
+
+\subsection{Integrator}
+\label{sec:Integrator_Diskussion}
+Die \autoref{plt:integrator} zeigt, dass die Messdaten nicht exakt einem linearen Verlauf folgen. 
+Aufgrund der niedrigen Frequenzen kann dies vermutlich auf Untergrundeffekte und allgemeine Schwierigkeiten bei der Darstellung eines sauberen Signals auf dem Oszilloskop zurückgeführt werden.
+Zudem könnten Messunsicherheiten in den Bauteilen zu größeren Abweichungen führen.
+Im Bereich von etwa $\qty{20}{\hertz}$ bis $\qty{60}{\hertz}$ zeigt sich jedoch ein Verhalten, das dem theoretischen Verlauf besser entspricht.
+Dieser Frequenzbereich ist allerdings zu schmal, um eine aussagekräftige Analyse ausschließlich auf ihn zu stützen.
+Die experimentell bestimmte Verstärkung weicht um $\qty{25.41}{\percent}$ vom theoretisch erwarteten Wert ab, was innerhalb der Toleranzen der Bauteileigenschaften und der allgemeinen Messunsicherheiten liegt.
+
+Anhand von \autoref{fig:integrator_rechteck} und 
+\autoref{fig:integrator_dreieck} ist qualitativ zu 
+erkennen, dass das Ausgangssignal des Integrators, bis auf einen Vorfaktor, dem zeitlichen Integral 
+des Eingangssignals entspricht. Aus dem Rechtecksignal ergibt sich ein Dreieckssignal und aus dem
+Dreieckssignal ein Parabelsignal. Dies entspricht den Erwartungen gemäß \autoref{eq:integrator}.
+
+\subsection{Differenzierer}
+\label{sec:Differenzierer_Diskussion}
+Die \autoref{plt:differenzierer} zeigt einen linearen Verlauf für höhere Frequenzen und verliert im unteren Frequenzbereich leicht an Linearität.
+Dies lässt sich auf Untergrundeffekte zurückführen, da im niedrigen Frequenzbereich die Verstärkung abnimmt und dadurch Hintergrundstörungen dominanter werden.
+Dies führt dazu, dass die Fit-Funktion auf natürliche Weise leicht nach oben verschoben wird.
+Zukünftige Analysen könnten daher versuchen, den Untergrund im Vorfeld zu messen und rechnerisch zu subtrahieren.
+Eine Abweichung von $\qty{7.51}{\percent}$ vom theoretischen Wert bestätigt insgesamt die theoretische Erwartung.
+
+In \autoref{fig:differenzierer_rechteck} und
+\autoref{fig:differenzierer_dreieck} sind die Eingangs-
+und Ausgangssignale des Differenzierers dargestellt. Es wird erwartet, dass an den Sprüngen des
+Rechtecksignals die Amplitude des Differenzierersignals einen Peak zeigt. Dies ist 
+in \autoref{fig:differenzierer_rechteck} zu erkennen.
+Es sei angemerkt, dass die Spannungsausschläge gedämpfte Schwingungen im Schaltkreis anregen, sodas
+die Peaks nicht ideal sind und zu den beobachteten Schwingungen führen.
+Ein ähnliches Verhalten ist auch im Fall des Dreiecksignals zu beobachten. Hierbei springt 
+das Ausgangssignal zwischen zwei Werten hin und her, wobei ebenfalls gedämpfte Schwingungen
+angeregt werden. Bis auf die gedämpften Schwingungen entspricht das Ausgangssignal des Differenzierers
+somit den Erwartungen gemäß \autoref{eq:differenzierer}.
+
+\subsection{Generator}
+Die gemessene Frequenz von $f_\text{exp} = \qty{1.67}{\kilo\hertz}$ weicht um $\qty{33.2}{\percent}$ vom theoretischen Wert $f_\text{theo} = \qty{2.5}{\kilo\hertz}$ ab.  
+Diese Differenz kann durch Bauteiltoleranzen, insbesondere beim Kondensator, sowie durch nicht-ideale Eigenschaften der Operationsverstärker und Versorgungsspannungen erklärt werden.  
+Trotz der Abweichung liegt der Wert in einer realistischen Größenordnung und bestätigt qualitativ das erwartete Oszillationsverhalten.
+
+\subsection{Generator mit variierender Amplitude}
+\label{sec:Generator_Diskussion}
+Der experimentelle Wert und die theoretische Vorhersage für $\tau$ passen im Rahmen der Unsicherheiten nicht zusammen.
+Dies kann jedoch dadurch erklärt werden, dass der Wert von $\abs{\eta}$ durch das Potentiometer eingestellt wird und nicht bekannt 
+ist. Der theoretische Wert liegt unterhalb des experimentellen Wertes. Dies deutet darauf hin, 
+dass gemäß \autoref{eq:generatorMitVariierenderAmplitude} der Wert von $\abs{\eta}$ kleiner ist als der 
+angenommene Wert von $\abs{\eta} = 1$.
