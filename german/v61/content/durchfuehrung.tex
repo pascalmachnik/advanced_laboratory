@@ -3,7 +3,7 @@
 Der Versuch basiert auf einer optischen Schiene. Auf dieser ist ein bereits justierter Justierlaser montiert. Dieser Laser hat eine Wellenlänge von $\lambda = 532 \unit{\nano\meter}$ und ist auf eine Leistung von $P = 0,1 \unit{\milli\watt}$.
 Auf der optischen Schiene wird ein HeNe-Laserrohr angebracht. Dieses hat eine Länge von $l = 408 \unit{\milli\meter}$ und der gasgefüllte Zylinder einen Durchmesser von $d_{HeNe} = 1,1 \unit{\milli\meter}$. Auf beiden Seiten dieses Rohrs wird 
 je ein Spiegel platziert. Einer dieser Spiegel ist hochreflektierend (Reflektivität $R \geq 99 \unit{\percent}$ ) während der andere teildurchlässig ist. Der teildurchlässige Spiegel wird auf der Seite positioniert auf der der Strahl des
-HeNe-Lasers genutzt werden soll. Der teildurchlässige Spiegel ist konkave mit einem Radius von $R = 1400 \unit{\milli\meter}$ und hat einen Transmissionsgrad von $T = 1,5 \unit{\percent},\ldots,1,8 \unit{\percent}$. Als hochreflektierender Spiegel
+HeNe-Lasers genutzt werden soll. Der teildurchlässige Spiegel ist konkav mit einem Radius von $R = 1400 \unit{\milli\meter}$ und hat einen Transmissionsgrad von $T = 1,5 \unit{\percent},\ldots,1,8 \unit{\percent}$. Als hochreflektierender Spiegel
 steht ein konkaver Spiegel mit einem Radius von $R = 1400 \unit{\milli\meter}$ und ein planarer Spiegel zur Verfügung. Dieser grundlegende Aufbau, wie in \ref{fig:Aufbau} dargestellt, wird für den gesamten Versuch genutzt.\\
 \begin{figure}
   \centering
@@ -11,7 +11,7 @@ steht ein konkaver Spiegel mit einem Radius von $R = 1400 \unit{\milli\meter}$ u
   \caption{Abbildung des genutzten grundlegenden Aufbaus wie im Versuch genutzt \cite{Anleitung_HeNe}.}
   \label{fig:Aufbau}
 \end{figure}
-Für die Justage stehen zwei Justierblenden zur Verfügung. Für die Messung der TEM-Moden ist ein eingespannter Wolframdraht mit einem Durchmesser von $d = 0,005$ genutzt. Für die Bestimmung der Polarisation wird ein, auf ein Grad einstellbarer,
+Für die Justage stehen zwei Justierblenden zur Verfügung. Für die Messung der TEM-Moden ist ein eingespannter Wolframdraht mit einem Durchmesser von $d = \qty{0.005}{\milli\meter}$ genutzt. Für die Bestimmung der Polarisation wird ein, auf ein Grad einstellbarer,
 Polarisator genutzt. Für die Bestimmung der Wellenlänge des Lasers werden zwei Gitter genutzt, eines mit einer Gitterkonstante von $12,5 \unit{\micro\meter}$ und eines mit einer Gitterkonstante von $10 \unit{\micro\meter}$.
 
 \newpage
@@ -33,7 +33,11 @@ verschiedene Einstellungen des Polarisators in $4 \unit{\degree}$ Schritten durc
 Um die TEM-Moden zu isolieren wird der eingespannte Wolframdraht in den Strahl gebracht und bewegt bis eine Mode dominant sichtbar ist. Die Intensität dieser wird mit einer Photodiode entlang einer Achse in $1 \unit{\milli\meter}$ Schritten
 gemessen. Dieser Vorgang wird für alle erreichbaren Moden wiederholt, in diesem Fall die $TEM_{00}$ und die $TEM_{10}$ Mode.
 
-\subsection{Stabilität bei verschiedenen Resonatorlängen}
+\subsection{Stabilität und Multimodenbetrieb bei verschiedenen Resonatorlängen}
 Um die Stabilität des Resonators zu prüfen wird der Abstand zwischen den Resonatorspiegeln vergrößert und alle Bestandteile des Lasers so nachjustiert, dass die Leistung maximal ist. Dieser Prozess wird so lange wiederholt bis das Ende der 
-optischen Schiene erreicht ist oder der Laserprozess nicht mehr beginnt. Hierfür werden zwei Spiegelkombinationen genutzt. Ein planarer Spiegel und ein konvexer Spiegel mit einem Radius von $R = 1400 \unit{\milli\meter}$ sowie zwei konvexe 
+optischen Schiene erreicht ist oder der Laserprozess nicht mehr beginnt. Hierfür werden zwei Spiegelkombinationen genutzt. Ein planarer Spiegel und ein konkaver Spiegel mit einem Radius von $R = 1400 \unit{\milli\meter}$ sowie zwei konkave 
 Spiegel, ebenfalls mit einem Radius von $R = 1400 \unit{\milli\meter}$.
+
+Für die konkav-konkave Konfiguration wird zusätzlich für verschiedene Resonatorlängen
+das Frequenzspektrum des Signals einer schnellen Photodiode mittels FFT am
+Oszilloskop bestimmt. Die Frequenzpositionen der Schwebungspeaks werden abgelesen.

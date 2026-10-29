@@ -17,7 +17,11 @@ Beim ersten Gitter liegt die Referenz innerhalb des einfachen
 Unsicherheitsintervalls. Die Abweichung beträgt
 \vWaveOneReferenceSigma{} Standardunsicherheiten. Beim zweiten Gitter
 beträgt sie \vWaveTwoReferenceSigma{} Standardunsicherheiten, sodass
-hier eine größere Abweichung von der Referenz verbleibt.
+hier eine größere Abweichung von der Referenz verbleibt. Die gleichgerichteten
+Abweichungen könnten auf einen gemeinsamen systematischen Fehler hindeuten. 
+Eine mögliche Ursache ist eine Unterschätzung des Abstands zwischen Gitter
+und Schlitzebene, die zu einer Überschätzung der Wellenlänge führt. Anhand
+der vorliegenden Messdaten lässt sich diese Ursache jedoch nicht eindeutig bestätigen.
 
 Die Fits beschreiben die Messpunkte gut und entsprechen dem erwarteten
 Verlauf der Gitterbeugung. Die reduzierten $\chi^2$-Werte von
@@ -25,13 +29,6 @@ Verlauf der Gitterbeugung. Die reduzierten $\chi^2$-Werte von
 abgeschätzte Messunsicherheiten hindeuten. Bei nur drei Freiheitsgraden je
 Fit lässt sich daraus jedoch nicht sicher auf eine Überschätzung der
 Unsicherheiten schließen.
-
-Die Abweichung beim zweiten Gitter könnte durch einen systematischen
-Abstandsfehler entstehen. Gemessen wurde vom Ende des Gitters bis zum
-Anfang der Schlitz-Photodiode, ohne die Lage des Photodetektors hinter dem Schlitz
-zu berücksichtigen. Liegt dort die wirksame Detektionsebene, wird der
-Abstand unterschätzt und die Wellenlänge überschätzt. Die Fitgüte kann
-dabei erhalten bleiben.
 
 \subsection{Bestimmung der Polarisation}
 
@@ -75,6 +72,10 @@ Das reduzierte $\chi^2_\nu=\vFirstChi$ liegt dagegen deutlich über eins.
 Die Abweichungen vom symmetrischen TEM$_{10}$-Modell sind größer, als die
 angesetzten Messunsicherheiten erwarten lassen. Die beschriebene
 Asymmetrie ist eine wahrscheinliche Erklärung.
+
+Der negative Untergrundparameter $B_{10}=\vFirstB$ kann als Artefakt des Fits
+oder durch einen möglichen Offset des Messgeräts entstehen und ist nicht
+als negative optische Leistung zu interpretieren.
 
 \subsection{Stabilität bei verschiedenen Resonatorlängen}
 
