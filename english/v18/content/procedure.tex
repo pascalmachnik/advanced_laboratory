@@ -1,2 +1,51 @@
 \section{Experimental Setup and Procedure}
 \label{sec:procedure}
+
+This chapter describes the experimental setup and the measurements performed.
+
+\subsection{Experimental setup}
+\label{sec:setup}
+
+The coaxial germanium detector, shown in Figure~\ref{fig:detector-schematic}, contains a cylindrical crystal with a diameter
+of \SI{45}{\milli\metre} and a length of \SI{39}{\milli\metre}.
+Its outer surface forms a lithium-diffused contact, while the central bore
+is coated with gold. An aluminium
+cover protects the crystal. Absorption in the cover and the lithium-diffused
+layer limits detection below approximately
+\SIrange{40}{50}{\kilo\electronvolt}~\cite{v18-manual}.
+A source holder positions the source \SI{1.5}{\centi\metre} above the
+aluminium cover. The whole assembly is enclosed by by a lead shielding to reduce background radiation.
+
+A liquid-nitrogen Dewar cools the detector, and a high-voltage supply provides
+the reverse bias. The charge-sensitive amplifier converts collected charge
+into a voltage signal. The analog-to-digital converter (ADC) digitises the
+pulse heights, and the computer sorts them into energy-related channels
+and records the histogram. The channel number depends linearly on the
+deposited energy. Figure~\ref{fig:signal-chain} shows the signal
+path.
+
+\begin{figure}[!htb]
+  \centering
+  \input{figures/signal_chain.tex}
+  \caption{Signal processing from the Ge detector to the recorded histogram,
+  with the bias supply and cooling system.}
+  \label{fig:signal-chain}
+\end{figure}
+\FloatBarrier
+
+\subsection{Measurements}
+
+The measurements characterise the spectrometer and apply its calibration to
+activity determination and nuclide identification. Each source spectrum is
+recorded for approximately one hour, while an overnight measurement without
+a source provides the background spectrum. Count rates are normalised to the
+recorded live time.
+
+The $^{152}\mathrm{Eu}$ spectrum provides the energy calibration and the
+energy dependence of the full-energy detection efficiency. The detector
+response is further characterised with $^{137}\mathrm{Cs}$ by examining the
+energy resolution, full-energy peak, and structures arising from Compton
+scattering. Using the calibrated spectrometer, the activity of a
+$^{133}\mathrm{Ba}$ source is then determined. Finally, an unknown sample is
+investigated to identify its radioactive nuclides and determine their
+activities.

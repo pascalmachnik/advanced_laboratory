@@ -1,5 +1,16 @@
 \input{../header.tex}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xurl}
+\usepackage{needspace}
+\addbibresource{references.bib}
+\ExecuteBibliographyOptions{sorting=none}
+\AtBeginBibliography{\small\raggedright}
+\hypersetup{hidelinks}
+
 \subject{EXPERIMENT NUMBER 18}
 \title{Germanium Detector in Gamma-Spectroscopy}
 \date{%
@@ -10,11 +21,12 @@
 
 \begin{document}
 
+\pagenumbering{roman}
 \maketitle
 \thispagestyle{empty}
 \tableofcontents
 \newpage
-\setcounter{page}{1}
+\pagenumbering{arabic}
 
 \input{content/objective.tex}
 \input{content/theory.tex}

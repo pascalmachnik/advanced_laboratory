@@ -1,0 +1,64 @@
+% Original longitudinal section, based on the geometry in the V18 manual.
+% Requires TikZ and the arrows.meta library. Dimensions are schematic.
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  >=Latex,
+  leader/.style={draw=black!65,thin},
+  carrier/.style={->,line width=0.8pt}
+]
+  % Protective cap, with a gap to the detector surface.
+  \draw[gray!70,line width=2pt]
+    (3.55,-0.05) -- (3.55,4.15) -- (9.25,4.15) -- (9.25,-0.05);
+
+  % The depleted Ge volume surrounds the axial bore.
+  \path[fill=blue!9,draw=blue!50!black,line width=0.6pt]
+    (4.1,0) -- (4.1,3.6) -- (8.7,3.6) -- (8.7,0)
+    -- (6.95,0) -- (6.95,2.45) -- (5.85,2.45) -- (5.85,0) -- cycle;
+
+  % Outer Li-diffused contact and gold-coated bore contact.
+  \draw[orange!85!black,line width=3pt]
+    (4.1,0) -- (4.1,3.6) -- (8.7,3.6) -- (8.7,0);
+  \draw[yellow!65!black,line width=2pt]
+    (5.85,0) -- (5.85,2.45) -- (6.95,2.45) -- (6.95,0);
+
+  \node[align=center,text=blue!50!black] at (6.4,3.05)
+    {Depleted Ge\\active volume};
+  \node[align=center,font=\footnotesize] at (6.4,1.1)
+    {Axial\\bore};
+
+  % A gamma creates carriers; the arrows show radial drift directions.
+  \draw[->,blue!65!black,line width=0.9pt]
+    (5.05,5.1) -- (5.05,1.58);
+  \node[anchor=east,align=right] at (4.8,4.8)
+    {Incident\\$\gamma$ photon};
+  \fill[blue!65!black] (5.05,1.4) circle (1.4pt);
+  \draw[carrier,blue!70!black] (4.99,1.4) -- (4.37,1.4);
+  \draw[carrier,red!70!black] (5.11,1.4) -- (5.63,1.4);
+  \node[blue!70!black,above] at (4.65,1.43) {$e^-$};
+  \node[red!70!black,above] at (5.4,1.43) {$h^+$};
+  \node[align=center,font=\footnotesize] at (4.99,0.55)
+    {Charge\\separation};
+
+  % Labels are outside the section, with no implied contact thickness.
+  \draw[leader] (3.55,3.9) -- (2.9,4.05) -- (0.8,4.05);
+  \node[anchor=south west,align=left] at (0.75,4.12)
+    {Al protective\\cover};
+
+  \draw[leader] (8.7,2.8) -- (9.6,3.15) -- (12.65,3.15);
+  \node[anchor=south west,align=left] at (9.65,3.22)
+    {Li-diffused outer contact};
+
+  \draw[leader] (6.95,0.75) -- (9.6,0.2) -- (12.65,0.2);
+  \node[anchor=south west,align=left] at (9.65,0.27)
+    {Au-coated inner contact};
+
+  % Reverse-bias voltage with contact connections, as in the manual.
+  \draw[black!80] (8.7,0) -- (8.7,-0.9) -- (10.8,-0.9);
+  \draw[black!80] (6.95,0) -- (6.95,-1.9) -- (10.8,-1.9);
+  \draw[<->,black!80] (10.35,-0.98) -- (10.35,-1.82)
+    node[midway,left] {$U$};
+  \node[red!75!black,anchor=west] at (10.85,-0.9) {$+$};
+  \node[blue!70!black,anchor=west] at (10.85,-1.9) {$-$};
+
+\end{tikzpicture}

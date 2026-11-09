@@ -1,0 +1,36 @@
+% Original functional signal-chain diagram.
+% Requires TikZ and the arrows.meta and positioning libraries.
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  >=Latex,
+  block/.style={draw=blue!45!black,fill=blue!5,rounded corners=2pt,
+    minimum height=1.05cm,align=center,inner sep=4pt},
+  service/.style={draw=black!55,fill=black!3,rounded corners=2pt,
+    minimum height=0.85cm,align=center,inner sep=4pt},
+  signal/.style={->,line width=0.8pt},
+  support/.style={->,draw=black!65,thin}
+]
+  \node[block,minimum width=1.65cm] (ge) at (0.9,0)
+    {Ge\\detector};
+  \node[block,minimum width=2.45cm] (csa) at (3.55,0)
+    {Charge-sensitive\\amplifier};
+  \node[block,minimum width=2.15cm] (adc) at (6.55,0)
+    {ADC};
+  \node[block,minimum width=2.15cm] (pc) at (9.55,0)
+    {Acquisition\\computer};
+
+  \draw[signal] (ge.east) -- (csa.west);
+  \draw[signal] (csa.east) -- (adc.west);
+  \draw[signal] (adc.east) -- (pc.west);
+
+  \node[service,minimum width=2.25cm] (bias) at (0.9,1.75)
+    {High-voltage supply};
+  \node[service,minimum width=2.25cm] (cool) at (0.9,-1.75)
+    {Liquid-nitrogen Dewar};
+  \draw[support] (bias.south) -- (ge.north)
+    node[midway,right,font=\footnotesize] {bias};
+  \draw[support] (cool.north) -- (ge.south)
+    node[midway,right,font=\footnotesize] {cooling};
+
+\end{tikzpicture}

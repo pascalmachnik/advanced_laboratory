@@ -1,2 +1,195 @@
 \section{Theory}
 \label{sec:theory}
+
+Gamma-ray spectroscopy uses characteristic photon energies and intensities
+to identify radionuclides and determine their activities. The following
+sections outline gamma emission, photon interactions with matter, and signal
+formation in a germanium detector.
+
+\subsection{Gamma emission and activity}
+\label{sec:gamma-emission}
+
+Gamma radiation is emitted when an excited nucleus makes a transition to a
+lower nuclear energy level. This process can be written schematically as
+\begin{equation}
+  \mathrm{X}^{*}\longrightarrow\mathrm{X}+\gamma,
+  \label{eq:gamma-decay}
+\end{equation}
+where $\mathrm{X}^{*}$ denotes the excited nucleus.
+Such excited states are often populated by a preceding radioactive decay.
+The photon energy equals the difference between the two levels. 
+The discrete nuclear levels therefore produce characteristic gamma lines,
+which can be used to identify the emitting nuclide. For a single
+radioactive nuclide, the activity $A$ follows the exponential decay law
+\begin{equation}
+  A(t)=A(t_0)\E^{-\lambda(t-t_0)}.
+  \label{eq:activity}
+\end{equation}
+The decay constant $\lambda$ is related to the half-life by
+\begin{equation}
+  \lambda=\frac{\ln 2}{T_{1/2}}.
+  \label{eq:decay-constant}
+\end{equation}
+Here $T_{1/2}$ is the half-life and $t_0$ the reference date.
+Activity is measured in becquerel,
+$\SI{1}{\becquerel}=1\,\mathrm{s}^{-1}$.
+Each gamma line has its own emission probability $p_i$.
+The photon emission rate of line $i$ is the source activity multiplied by $p_i$.
+
+
+\subsection{Photon matter interactions}
+\label{sec:photon-interactions}
+
+Photons interact with matter through several mechanisms. In the \emph{photoelectric effect}, a photon is absorbed and an
+atomic electron is emitted with kinetic energy approximately $E_\gamma-B$,
+where $B$ is its binding energy. Photoelectric absorption is particularly important
+at low photon energies and increases strongly with atomic number.
+
+In \emph{Compton scattering}, a photon transfers part of its energy to an
+electron and continues with a lower energy. Escape of the scattered photon
+leaves only part of the incident energy in the detector. This process is
+important at intermediate gamma energies and depends primarily on the
+electron density. 
+
+\emph{Pair production} becomes possible in the nuclear
+field above $2m_ec^2\simeq\SI{1.022}{\mega\electronvolt}$: a photon converts
+into an electron and a positron. After slowing down, the positron normally
+annihilates into two photons of \SI{511}{\kilo\electronvolt} each.
+Pair production becomes increasingly important at high energies. 
+The relative contributions in germanium are illustrated in
+Figure~\ref{fig:attenuation}.
+
+\begin{figure}[!htb]
+  \centering
+  \input{figures/attenuation.tex}
+  \caption{Linear attenuation coefficients of germanium as a function of
+  photon energy for photoelectric absorption (PE), Compton scattering (C),
+  and pair production (PP). Taken from Figure~3 in
+  ORTEC~\cite{ortec-photon-overview}.}
+  \label{fig:attenuation}
+\end{figure}
+
+\subsection{Attenuation and interaction probability}
+
+For monoenergetic photons passing through a homogeneous material of thickness
+$x$, the unscattered intensity follows
+\begin{equation}
+  I(x)=I_0\E^{-\mu x},
+  \label{eq:attenuation}
+\end{equation}
+where $I_0$ is the incident intensity and $\mu$ the energy-dependent linear
+attenuation coefficient. For a photon path of length $L$, the probability
+of at least one interaction is
+\begin{equation}
+  P_{\mathrm{int}}=1-\E^{-\mu L}.
+  \label{eq:interaction-probability}
+\end{equation}
+An interaction does not necessarily deposit the full photon energy, since
+scattered photons can escape from the detector.
+
+\subsection{Semiconductor detector and energy resolution}
+\label{sec:semiconductor}
+
+A germanium detector operates as a reverse-biased semiconductor diode.
+The applied voltage widens the depletion region, which contains few mobile
+charge carriers, and establishes an electric field. Energetic electrons
+produced by photon interactions excite electrons from the valence band into
+the conduction band, creating electron--hole pairs. The field drives electrons
+and holes towards opposite contacts, producing a pulse whose height is
+proportional to the deposited energy. Cooling suppresses leakage-current noise,
+which results from thermal excitation of electrons across the band gap.
+Figure~\ref{fig:detector-schematic} illustrates
+the contact arrangement and
+charge separation in a coaxial germanium detector.
+An aluminium cover protects the germanium crystal.
+
+\begin{figure}[!htb]
+  \centering
+  \input{figures/detector_schematic.tex}
+  \caption{Schematic coaxial Ge detector based on the
+  manual~\cite{v18-manual}. The applied bias drives electrons and holes
+  towards opposite contacts. Arrows indicate their drift directions.
+  Not to scale.}
+  \label{fig:detector-schematic}
+\end{figure}
+
+Even for identical deposited energies, the number of electron--hole pairs
+fluctuates statistically, so the measured pulse heights are gaussian distributed around
+a mean value. Electronic noise and variations in charge collection further
+broaden this distribution. Its full width at
+half maximum (FWHM) characterises the energy resolution: a smaller width
+allows nearby gamma lines to be distinguished more clearly.
+
+The full-energy detection efficiency $\varepsilon(E_i)$ is the probability
+that a photon incident on the detector deposits its complete energy. For an
+isotropically emitting source, it is given by
+\begin{equation}
+  \varepsilon(E_i)=\frac{N_i}{A\,t\,p_i\,\Omega/(4\pi)},
+  \label{eq:full-energy-efficiency}
+\end{equation}
+where $N_i$ is the background-corrected peak area, $A$ the source activity,
+$t$ the live time, $p_i$ the line emission probability, and $\Omega$ the solid
+angle subtended by the detector as viewed from the source. The efficiency depends on
+photon energy and detector geometry.
+
+\subsection{Spectral features of a monochromatic gamma source}
+\label{sec:compton-spectrum}
+
+A monochromatic gamma source produces a full-energy peak and a Compton
+continuum, illustrated in Figure~\ref{fig:spectrum-schematic}. The
+full-energy peak represents complete energy deposition, either directly or
+through successive interactions ending in absorption. The continuum arises
+when a scattered photon escapes after transferring only part of its energy.
+
+\begin{figure}[H]
+  \centering
+  \input{figures/spectrum_schematic.tex}
+  \caption{Schematic gamma spectrum showing the full-energy peak, Compton
+  continuum, Compton edge and backscatter peak. Relative heights and widths
+  are illustrative.}
+  \label{fig:spectrum-schematic}
+\end{figure}
+
+In Compton scattering from a free electron initially at rest, a photon with
+incident energy $E_\gamma$ has the scattered energy $E'_\gamma$ given by
+\begin{equation}
+  E'_\gamma=\frac{E_\gamma}{1+\alpha(1-\cos\theta)},
+  \label{eq:compton-energy}
+\end{equation}
+with
+\begin{equation}
+  \alpha=\frac{E_\gamma}{m_ec^2},
+  \label{eq:compton-alpha}
+\end{equation}
+where $\theta$ is the scattering angle and $m_ec^2$ the electron rest energy.
+The electron receives the difference between the incident and scattered
+photon energies. The differential cross section for Compton scattering
+is described by the Klein--Nishina formula
+\begin{equation}
+  \frac{\dif{\sigma}}{\dif{\Omega}}
+    =\frac{r_e^2}{2}\left(\frac{E'_\gamma}{E_\gamma}\right)^2
+    \left(\frac{E'_\gamma}{E_\gamma}
+    +\frac{E_\gamma}{E'_\gamma}-\sin^2\theta\right),
+  \label{eq:klein-nishina}
+\end{equation}
+where $r_e$ is the classical electron radius.
+
+The maximum energy transfer at $\theta=\pi$ defines the Compton edge.
+Photons scattered backwards in surrounding material and then absorbed in
+the detector produce the backscatter peak. Their energies are
+\begin{align}
+  E_{\mathrm{CE}}&=E_\gamma\frac{2\alpha}{1+2\alpha},
+  \label{eq:compton-features} \\
+  E_{\mathrm{BS}}&=\frac{E_\gamma}{1+2\alpha}.
+  \label{eq:backscatter-energy}
+\end{align}
+For a Gaussian full-energy peak, the full width at one tenth of the maximum
+(FWTM) and the FWHM satisfy
+\begin{equation}
+  \frac{\mathrm{FWTM}}{\mathrm{FWHM}}
+    =\sqrt{\frac{\ln10}{\ln2}}\simeq1.823.
+  \label{eq:gaussian-width-ratio}
+\end{equation}
+Their measured ratio therefore tests the Gaussian peak shape.
+
+\newpage
